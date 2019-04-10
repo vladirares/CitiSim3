@@ -1,5 +1,6 @@
 package com.main.citisim;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,8 +8,11 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class NewReport extends AppCompatActivity {
 
@@ -19,13 +23,16 @@ public class NewReport extends AppCompatActivity {
     ImageView image;
     private static final int PICK_IMAGE=100;
     Uri imageUri;
-
-
+    EditText latitude;
+    EditText longitude;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_report);
+
+        latitude=(EditText)findViewById(R.id.latitudeView);
+        longitude=(EditText)findViewById(R.id.longitudeView);
 
         image=(ImageView)findViewById(R.id.image) ;
         backToReports=(Button)findViewById(R.id.backToReports);
@@ -48,7 +55,12 @@ public class NewReport extends AppCompatActivity {
         submitImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //getDeviceLocation();
+
+
+            latitude.setText(Double.toString(Map.latitude));
+            longitude.setText(Double.toString(Map.longitude));
+            //writeToFile("");
+                //write to reports.json
 
 
             }
@@ -57,6 +69,22 @@ public class NewReport extends AppCompatActivity {
 
     }
 
+
+
+    ////////////////////////////........
+
+
+   public static void writeToFile(Context context, String fileName, String str){
+        try{
+            FileOutputStream fos = context.openFileOutput(fileName,Context.MODE_PRIVATE);
+            fos.write(str.getBytes(),0,str.length());
+            fos.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+   }
+
+///////////////////////////////..........
 
 
 
