@@ -44,9 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    AuthentificationException e = new AuthentificationException();
-                    throw e;
-
+                    okmsg.setText("not ok");
                 }
 
                 //------LOGARE-------//
@@ -79,11 +77,7 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    public class AuthentificationException extends RuntimeException{
-        AuthentificationException(){
-            super("Autentificare esuata");
-        }
-    }
+
 
 
 
